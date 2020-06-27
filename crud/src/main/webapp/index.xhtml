@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+    </h:head>
+    <p:growl id="growl"/>
+    <h:body>
+        <h:form id="formulario_PersonaH">
+            <p:panelGrid columns="4">
+                <p:outputLabel value="NOMBRE"/>
+                <p:inputText value="#{personaHC.model.NOMPER}" maxlength="30" required="true" 
+                             requiredMessage="Este campo es obligatorio">
+                    <p:keyFilter regEx="/[a-z- ]/i"/>
+                </p:inputText>
+
+                <p:outputLabel value="APELLIDO"/>
+                <p:inputText value="#{personaHC.model.APEPER}" maxlength="30" required="true" 
+                             requiredMessage="Este campo es obligatorio">
+                    <p:keyFilter regEx="/[a-z- ]/i"/>
+                </p:inputText>
+
+                <p:outputLabel value="DNI"/>
+                <p:inputMask value="#{personaHC.model.DNIPER}" required="true" maxlength="8" 
+                             requiredMessage="Este campo es obligatorio" size="8" mask="99999999">
+                    <p:keyFilter regEx="/[0-9]/"/>
+                </p:inputMask>
+
+                <p:outputLabel value="ESTADO CIVIL"/>
+                <p:selectOneRadio value="#{personaHC.model.ESTPERCV}" required="true" 
+                                  requiredMessage="Este campo es obligatorio">
+                    <f:selectItem itemLabel="SOLTERO" itemValue="S"/>
+                    <f:selectItem itemLabel="CASADO" itemValue="C"/>
+                </p:selectOneRadio>
+
+            </p:panelGrid>
+            <p:commandButton value="GUARDAR" actionListener="#{personaHC.addPersonaH()}" 
+                             update=":formulario_PersonaH :formulario_lista_PersonaH:dtb_lista_PersonaH :growl"/>
+        </h:form>
+
+        <p:spacer/>
+
+        <h:form id="formulario_lista_PersonaH">
+            <p:dataTable id="dtb_lista_PersonaH" value="#{personaHC.lista_hombre}" var="personaH"
+                         expandableRowGroups="true"
+                         sortBy="#{personaH.ESTPERCV}">
+
+                <p:headerRow>
+                    <p:column colspan="4">
+                        <h:outputText value="#{personaH.ESTPERCV}" converter="converterPH"/>
+                    </p:column>
+                </p:headerRow>
+
+                <p:column headerText="ID">
+                    <h:outputLabel value="#{personaH.IDPER}"/>
+                </p:column>
+
+                <p:column headerText="NOMBRE">
+                    <h:outputLabel value="#{personaH.NOMPER}"/>
+                </p:column>
+
+                <p:column headerText="APELLIDO">
+                    <h:outputLabel value="#{personaH.APEPER}"/>
+                </p:column>
+
+                <p:column headerText="DNI">
+                    <h:outputLabel value="#{personaH.DNIPER}"/>
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+    </h:body>
+</html>

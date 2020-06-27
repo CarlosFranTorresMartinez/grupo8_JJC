@@ -1,0 +1,6 @@
+dao/CRUDinterfaces.class
+dao/Conexion.class
+dao/PersonaHD.class
+model/PersonaH.class
+model/PersonaM.class
+controler/PersonaHC.class
